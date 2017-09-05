@@ -1,0 +1,75 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: myapp
+    role: web
+  name: myapp
+  namespace: myapp
+spec:
+  minReadySeconds: 30
+  strategy:
+    type: RollingUpdate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: myapp
+        role: web
+      name: myapp
+    spec:
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+        - name: public
+          emptyDir: {}
+      containers:
+      - name: rails
+        image: quay.io/koudaiii/myapp:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: 3000
+          initialDelaySeconds: 10
+          timeoutSeconds: 1
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - "cp"
+                - "-r"
+                - "/app/public"
+                - "/nginx/"
+        env:
+        - name: "RAILS_SERVE_STATIC_FILES"
+          value: "enabled"
+        - name: "RAILS_LOG_TO_STDOUT"
+          value: "enabled"
+        envFrom:
+        - secretRef:
+            name: dotenv
+        command: ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+        volumeMounts:
+          - mountPath: /nginx/public
+            name: public
+      - name: nginx
+        image: nginx:1.13.3-alpine
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+        lifecycle:
+          preStop:
+            exec:
+            # SIGTERM triggers a quick exit; gracefully terminate instead
+              command: ["/usr/sbin/nginx","-s","quit"]
+        volumeMounts:
+          - mountPath: /app/public
+            name: public
+            readOnly: true
+          - mountPath: /etc/nginx/
+            name: nginx-conf
+            readOnly: true

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -eu
+set -o pipefail
+
+LOWUSER=$(tr '[A-Z]' '[a-z]' <<<$USER)
+NAME=$LOWUSER-$(date '+%Y%m%d%H%M%s')
+COMMIT=$(git rev-parse HEAD)
+TAG=${COMMIT::7}
+
+cat kubernetes/migration.yaml | sed "s/\[REPLACE_WITH_DATETIME\]/$NAME/g" | sed "s/\[REPLACE_WITH_TAG\]/$TAG/g"> /tmp/$NAME.yaml
+kubectl create -f /tmp/$NAME.yaml

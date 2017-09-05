@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migrate-[REPLACE_WITH_DATETIME]
+  namespace: myapp
+  labels:
+    name: db-migrate-[REPLACE_WITH_DATETIME]
+    role: batch
+spec:
+  template:
+    metadata:
+      name: db-migrate-[REPLACE_WITH_DATETIME]
+      labels:
+        name: db-migrate-[REPLACE_WITH_DATETIME]
+        role: batch
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: db-migrate-[REPLACE_WITH_DATETIME]
+        image: quay.io/koudaiii/myapp:[REPLACE_WITH_TAG]
+        command: ["bundle", "exec", "rails", "db:migrate"]
+        env:
+         - name: "RAILS_SERVE_STATIC_FILES"
+           value: "enabled"
+         - name: "RAILS_LOG_TO_STDOUT"
+           value: "enabled"
+        envFrom:
+        - secretRef:
+            name: dotenv

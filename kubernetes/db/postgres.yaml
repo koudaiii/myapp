@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: myapp
+  name: postgres
+  labels:
+    name: postgres
+    role: db
+spec:
+  minReadySeconds: 30
+  strategy:
+    type: RollingUpdate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: postgres
+        role: db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:9.6.5
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: code
+        - name: POSTGRES_PASSWORD
+          value: zine
+        - name: POSTGRES_DB
+          value: myapp

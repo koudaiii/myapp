@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: USER
+  namespace: myapp
+spec:
+  containers:
+  - command:
+    - bash
+    image: quay.io/koudaiii/myapp:latest
+    imagePullPolicy: Always
+    name: USER
+    stdin: true
+    stdinOnce: true
+    terminationMessagePath: /dev/termination-log
+    tty: true
+    env:
+      - name: "RAILS_SERVE_STATIC_FILES"
+        value: "enabled"
+      - name: "RAILS_LOG_TO_STDOUT"
+        value: "enabled"
+    envFrom:
+    - secretRef:
+        name: dotenv
+  restartPolicy: Never
