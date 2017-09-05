@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -eu
+set -o pipefail
+
+cd "$(dirname $0)/.."
+echo "Deploy ${REPO}:${TAG_COMMIT} to production"
+# ./kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${REPO}:${TAG_COMMIT} --namespace=${NAMESPACE}

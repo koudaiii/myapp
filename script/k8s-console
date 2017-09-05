@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+set -eu
+set -o pipefail
+
+KUBE=kubectl
+
+NAME="$(awk '{ print tolower($0) }' <<< "$USER")"
+NAME="${NAME}-$(date '+%Y%m%d%H%M%s')"
+
+TAG='latest'
+if [ $# -eq 1 ]; then
+  COMMIT=$(git rev-parse $1)
+  TAG=${COMMIT::7}
+fi
+
+TEMPFILE="$(mktemp)"
+
+COLUMNS=`tput cols`
+LINES=`tput lines`
+TERM=xterm
+
+create_pod() {
+  cat kubernetes/run.yaml | sed "s,USER,$NAME,g" | sed "s/latest/$TAG/g" > "$TEMPFILE"
+  $KUBE create -f "$TEMPFILE"
+}
+
+destroy_pod() {
+  $KUBE delete po $NAME -n myapp
+}
+
+wait_for_up() {
+  while true ; do
+    sleep 2
+    echo "Waiting for container to be up and running..."
+    $KUBE get po $NAME -n myapp | grep Running > /dev/null 2>&1 && break
+  done
+}
+
+enter_to_pod() {
+  $KUBE exec -it $NAME env COLUMNS=$COLUMNS LINES=$LINES TERM=$TERM -n myapp /bin/bash
+}
+
+at_exit() {
+  rm "$TEMPFILE"
+  destroy_pod
+}
+
+main() {
+  create_pod
+
+  trap at_exit EXIT
+  trap 'trap - EXIT; at_exit; exit -1' SIGHUP SIGINT SIGTERM
+
+  wait_for_up
+  enter_to_pod
+}
+main

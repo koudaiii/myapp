@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -eu
+set -o pipefail
+
+if [ $TRAVIS_PULL_REQUEST = 'true' ]; then
+  echo "Skip build because this build is a pull request."
+  exit 0
+fi
+
+cd "$(dirname $0)/.."
+
+echo "docker login"
+docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" quay.io
+
+docker push $REPO:$TAG_COMMIT
+docker push $REPO:$TAG_COMMIT_SHORT
+docker push $REPO:$TAG_BRANCH
+
+if [ $TRAVIS_BRANCH = 'master' ]; then
+  docker push $REPO:latest
+fi

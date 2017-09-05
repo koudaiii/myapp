@@ -1,0 +1,161 @@
+#!/usr/bin/env bash
+#
+# bootstrap
+#
+# Get readly to Develop CodeZine
+set -eu
+set -o pipefail
+
+#
+# Error
+#
+error_exit() {
+  echo ""
+  echo_red "  Fix the issue and run again."
+  exit 1
+}
+
+echo_red() {
+  RED='\033[0;31m'
+  NC='\033[0m' # No Color
+  echo -e "${RED}$1${NC}"
+}
+
+#
+# Welcome To CodeZine Sample Application
+#
+echo ""
+echo "  CodeZine Sample Application"
+echo ""
+echo "    開発者のための実装系Webマガジン"
+echo ""
+
+#
+# Creating Environment Variable File
+#
+if test ! -f .env
+then
+  echo "  + Creating .env"
+  cp .env.sample .env
+else
+  echo "  + Environment variable file (.env) found."
+fi
+
+#
+# Check for nodenv
+#
+if test ! $(which nodenv)
+then
+  echo "  + Installing nodenv..."
+  brew install node-build nodenv
+else
+  echo "  + nodenv found."
+fi
+
+#
+# Check for Node
+#
+NODE_VERSION=$(cat .node-version 2>/dev/null)
+if node --version | grep $NODE_VERSION > /dev/null 2>&1
+then
+  echo "  + node $NODE_VERSION found."
+else
+  echo_red "  x node $NODE_VERSION required."
+  echo "    To install with nodenv"
+  echo "    $ nodenv install $NODE_VERSION"
+  nodenv install $NODE_VERSION
+fi
+
+#
+# Check for yarn
+#
+if test ! $(which yarn)
+then
+  echo "  + Installing yarn..."
+  npm install yarn
+else
+  echo "  + yarn found."
+fi
+
+#
+# Install NPM packages
+#
+echo "  + Installing npm packages."
+echo "    > yarn install"
+if ERROR=`yarn install 2>&1`
+then
+  wait
+  echo "  + npm packages installation completed."
+else
+  wait
+  echo_red "  x npm packages installation failed."
+  echo $ERROR
+  error_exit
+fi
+
+#
+# Check for Postgres
+#
+postgres_is_running() {
+  ps aux | grep -v 'grep' | grep 'postgres' > /dev/null 2>&1
+}
+if postgres_is_running
+then
+  echo "  + PostgreSQL is running."
+else
+  echo_red "  x PostgreSQL not found"
+  echo "    Follow this instruction:"
+  echo "      http://postgresapp.com"
+  error_exit
+fi
+
+#
+# Creating for Ruby
+#
+RUBY_VERSION=`cat .ruby-version`
+
+if rbenv versions | grep $RUBY_VERSION > /dev/null 2>&1
+then
+  echo "  + ruby $RUBY_VERSION fonud."
+else
+  if rbenv install --list | grep $RUBY_VERSION > /dev/null 2>&1
+  then
+    echo "    > ruby-build can build ruby $RUBY_VERSION"
+  else
+    echo '    > brew upgrade ruby-build'
+    brew upgrade ruby-build
+  fi
+
+  echo "    > ruby install $RUBY_VERSION"
+  rbenv install $RUBY_VERSION
+
+  echo "    > bundler install"
+  gem install bundler
+fi
+
+#
+# Install Gems
+#
+echo "  + Installing gems."
+if ERROR=`bundle install --quiet --jobs=4 --without production qa 2>&1`
+then
+  wait
+  echo "  + Gem installation completed."
+else
+  wait
+  echo_red "  x Gem installation failed."
+  echo $ERROR
+  error_exit
+fi
+
+#
+# Startup instructions
+#
+echo ""
+echo "  セット・アップ完了"
+echo ""
+echo "  Run 'script/server'"
+echo "  And you can see 'open localhost:5000'"
+echo ""
+
+exit 0

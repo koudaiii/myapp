@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -eu
+set -o pipefail
+
+if [ $TRAVIS_PULL_REQUEST != 'false' ]; then
+  echo "Skip build because this build is a pull request."
+  exit 0
+fi
+
+cd "$(dirname $0)/.."
+
+docker build \
+       -t $REPO:$TAG_COMMIT \
+       .
+
+docker tag $REPO:$TAG_COMMIT $REPO:$TAG_COMMIT_SHORT
+docker tag $REPO:$TAG_COMMIT $REPO:$TAG_BRANCH
+
+if [ $TRAVIS_BRANCH = 'master' ]; then
+  docker tag $REPO:$TAG_COMMIT $REPO:latest
+fi
