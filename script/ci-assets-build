@@ -11,4 +11,4 @@ fi
 cd "$(dirname $0)/.."
 
 echo "build assets"
-RAILS_ENV=production be rails assets:precompile
+RAILS_ENV=production bundle exec rails assets:precompile
