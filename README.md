@@ -10,7 +10,6 @@ CodeZine Sample Application
   - ruby-build
   - postgresql
   - docker
-  - minikube
   - kubernetes-cli
 
 ## Usage
@@ -51,7 +50,7 @@ $ script/server
 
 ## Deployment
 
-- locally(minikube)
+- locally(Using minikube)
 
 use https://github.com/kubernetes/minikube
 
@@ -76,6 +75,9 @@ $ kubectl create -f kubernetes/namespace.yaml
 
 # Create nginx.conf
 $ kubectl create -f kubernetes/nginx-config.yaml
+
+# Create dotenv
+$ kubectl create -f kubernetes/dotenv.yaml
 
 # Create HorizontalPodAutoscaler
 $ kubectl create -f kubernetes/myapp-hpa.yaml
