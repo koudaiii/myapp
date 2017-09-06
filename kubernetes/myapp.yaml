@@ -31,11 +31,11 @@ spec:
         image: quay.io/koudaiii/myapp:latest
         imagePullPolicy: Always
         ports:
-          - containerPort: 5000
+          - containerPort: 3000
         readinessProbe:
           httpGet:
             path: /ping
-            port: 5000
+            port: 3000
           initialDelaySeconds: 10
           timeoutSeconds: 1
         lifecycle:

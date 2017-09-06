@@ -57,6 +57,6 @@ RUN mkdir -p \
     tmp/pids \
     tmp/sockets
 
-EXPOSE 5000
+EXPOSE 3000
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
