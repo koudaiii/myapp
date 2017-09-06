@@ -1,19 +1,21 @@
 language: ruby
 cache: bundler
 rvm:
-- 2.4.1
+  - 2.4.1
+
 services:
-- docker
-- postgresql
+  - docker
+  - postgresql
+
 env:
   global:
   - REPO=quay.io/koudaiii/myapp
-#  - DEPLOYMENT_NAME=${REPO##*/}
-#  - NAMESPACE=$DEPLOYMENT_NAME
-#  - KUBECTL_VERSION=1.6.6
-#  - KOPS_VERSION=1.6.2
-#  - K8S_PROD_CLUSTER=prod.cluster.example.com
-#  - K8S_QA_CLUSTER=qa.cluster.example.com
+  - DEPLOYMENT_NAME=${REPO##*/}
+  - NAMESPACE=$DEPLOYMENT_NAME
+  - KUBECTL_VERSION=1.6.6
+  - KOPS_VERSION=1.6.2
+  - K8S_PROD_CLUSTER=prod.cluster.example.com
+  - K8S_QA_CLUSTER=qa.cluster.example.com
   - TAG_COMMIT=$TRAVIS_COMMIT
   - TAG_COMMIT_SHORT=${TRAVIS_COMMIT::7}
   - TAG_BRANCH=$(echo $TRAVIS_BRANCH | sed -e 's/[^a-zA-Z0-9-]/_/g')
@@ -26,7 +28,7 @@ env:
 cache: bundler
 
 before_install:
-- "npm install -g yarn@$YARN_VERSION"
+  - "npm install -g yarn@$YARN_VERSION"
 
 before_script:
   - bundle exec rails db:create RAILS_ENV=test
@@ -38,11 +40,11 @@ script:
   - ./script/ci-push
 
 before_deploy:
-# - curl -SL -o ./kubectl "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
-# - chmod +x ./kubectl
-# - curl -SL -o ./kops "https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-amd64"
-# - chmod +x ./kops
-# - "./kops export kubecfg --name $K8S_CLUSTER"
+  - curl -SL -o ./kubectl "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
+  - chmod +x ./kubectl
+  - curl -SL -o ./kops "https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-amd64"
+  - chmod +x ./kops
+  - "./kops export kubecfg --name $K8S_CLUSTER"
 
 deploy:
   skip_cleanup: true
