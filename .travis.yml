@@ -49,7 +49,6 @@ before_deploy:
   - chmod +x ./kubectl
   - curl -SL -o ./kops "https://github.com/kubernetes/kops/releases/download/${KOPS_VERSION}/kops-linux-amd64"
   - chmod +x ./kops
-  - "./kops export kubecfg --name $K8S_CLUSTER"
 
 deploy:
   skip_cleanup: true
