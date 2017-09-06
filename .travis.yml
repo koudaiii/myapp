@@ -12,7 +12,8 @@ env:
 #  - NAMESPACE=$DEPLOYMENT_NAME
 #  - KUBECTL_VERSION=1.6.6
 #  - KOPS_VERSION=1.6.2
-#  - K8S_CLUSTER=your.cluster.example.com
+#  - K8S_PROD_CLUSTER=prod.cluster.example.com
+#  - K8S_QA_CLUSTER=qa.cluster.example.com
   - TAG_COMMIT=$TRAVIS_COMMIT
   - TAG_COMMIT_SHORT=${TRAVIS_COMMIT::7}
   - TAG_BRANCH=$(echo $TRAVIS_BRANCH | sed -e 's/[^a-zA-Z0-9-]/_/g')

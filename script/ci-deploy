@@ -3,6 +3,12 @@
 set -eu
 set -o pipefail
 
-cd "$(dirname $0)/.."
-echo "Deploy ${REPO}:${TAG_COMMIT} to production"
-# ./kubectl set image deployment/${DEPLOYMENT_NAME} rails=${REPO}:${TAG_COMMIT} --namespace=${NAMESPACE}
+if [ "$TRAVIS_BRANCH" == "master" ]; then
+  echo "Deploy ${REPO}:${TAG} in production"
+#  ./kops export kubecfg --name $K8S_PROD_CLUSTER
+else
+  echo "Deploy ${REPO}:${TAG} in qa"
+#  ./kops export kubecfg --name $K8S_QA_CLUSTER
+fi
+
+# ./kubectl set image deployment/${DEPLOYMENT_NAME} rails=${REPO}:${TAG} --namespace=${NAMESPACE} --record
