@@ -1,5 +1,7 @@
 # myapp
 
+[![Build Status](https://travis-ci.org/koudaiii/myapp.svg?branch=master)](https://travis-ci.org/koudaiii/myapp)
+
 CodeZine Sample Application
 
 ## System dependencies
