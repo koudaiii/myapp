@@ -24,7 +24,7 @@ spec:
             name: nginx-conf
         - name: public
           emptyDir: {}
-        - name: tmp
+        - name: sockets
           emptyDir: {}
       containers:
       - name: rails
@@ -58,8 +58,8 @@ spec:
         volumeMounts:
           - mountPath: /nginx/public
             name: public
-          - mountPath: /app/tmp
-            name: tmp
+          - mountPath: /app/tmp/sockets
+            name: sockets
       - name: nginx
         image: nginx:1.13.3-alpine
         imagePullPolicy: Always
@@ -77,5 +77,5 @@ spec:
           - mountPath: /etc/nginx/
             name: nginx-conf
             readOnly: true
-          - mountPath: /app/tmp
-            name: tmp
+          - mountPath: /app/tmp/sockets
+            name: sockets

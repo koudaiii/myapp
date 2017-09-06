@@ -32,7 +32,7 @@ data:
       #gzip  on;
 
       upstream app {
-        server unix:///app/tmp/puma.sock fail_timeout=0;
+        server unix:///app/tmp/sockets/puma.sock fail_timeout=0;
       }
 
       server {
