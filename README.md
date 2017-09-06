@@ -96,6 +96,11 @@ deployment "postgres" created
 $ kubectl create -f kubernetes/myapp.yaml
 ```
 
+```bash
+# Open Browser
+$ open $(minikube service myapp -n myapp)
+```
+
 ### Console
 
 ```bash
