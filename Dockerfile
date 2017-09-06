@@ -1,4 +1,4 @@
-FROM ruby:2.4.1-alpine3.6
+FROM ruby:2.4.1-alpine3.4
 
 # Disable spring for good
 ENV DISABLE_SPRING 1
