@@ -1,15 +1,4 @@
-FROM ruby:2.4.1-alpine
-
-#  Ruby
-#-----------------------------------------------
-ENV BUNDLER_VERSION 1.14.4
-
-RUN gem install bundler --version "$BUNDLER_VERSION" \
-# Ignore warning: "Don't run Bundler as root."
-# @see https://github.com/docker-library/rails/issues/10
-  && bundle config --global silence_root_warning 1 \
-# Ignore insecure `git` protocol for gem
-  && bundle config --global git.allow_insecure true
+FROM ruby:2.4.1-alpine3.6
 
 # Disable spring for good
 ENV DISABLE_SPRING 1
