@@ -24,6 +24,8 @@ spec:
             name: nginx-conf
         - name: public
           emptyDir: {}
+        - name: tmp
+          emptyDir: {}
       containers:
       - name: rails
         image: quay.io/koudaiii/myapp:latest
@@ -56,6 +58,8 @@ spec:
         volumeMounts:
           - mountPath: /nginx/public
             name: public
+          - mountPath: /app/tmp
+            name: tmp
       - name: nginx
         image: nginx:1.13.3-alpine
         imagePullPolicy: Always
@@ -73,3 +77,5 @@ spec:
           - mountPath: /etc/nginx/
             name: nginx-conf
             readOnly: true
+          - mountPath: /app/tmp
+            name: tmp
