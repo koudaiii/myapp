@@ -1,2 +1,2 @@
-rails: bundle exec rails s Puma -p 3000
+rails: bundle exec puma -C config/puma.rb
 webpack: bin/webpack-dev-server
