@@ -15,9 +15,6 @@ port        ENV.fetch("PORT") { 3000 }
 #
 environment ENV.fetch("RAILS_ENV") { "development" }
 
-app_root = File.expand_path("../..", __FILE__)
-bind        ENV['SOCKET']   || "unix://#{app_root}/tmp/sockets/puma.sock"
-
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
 # the concurrency of the application would be max `threads` * `workers`.
