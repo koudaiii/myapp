@@ -2,7 +2,7 @@ FROM ruby:2.4.1-alpine
 
 #  Ruby
 #-----------------------------------------------
-ENV BUNDLER_VERSION 1.14.4
+ENV BUNDLER_VERSION 1.14.6
 
 RUN gem install bundler --version "$BUNDLER_VERSION" \
 # Ignore warning: "Don't run Bundler as root."
