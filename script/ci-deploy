@@ -4,7 +4,7 @@ set -eu
 set -o pipefail
 
 if [ "$TRAVIS_BRANCH" == "master" ]; then
-  echo "Deploy ${REPO}:${TAG_COMMITTAG} in production"
+  echo "Deploy ${REPO}:${TAG_COMMIT} in production"
 #  ./kops export kubecfg --name $K8S_PROD_CLUSTER
 else
   echo "Deploy ${REPO}:${TAG_COMMIT} in qa"
