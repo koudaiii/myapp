@@ -1,10 +1,21 @@
-# myapp
+myapp
+=================
 
 [![Build Status](https://travis-ci.org/koudaiii/myapp.svg?branch=master)](https://travis-ci.org/koudaiii/myapp)
 
 CodeZine Sample Application
 
-## System dependencies
+* [System dependencies](#system-dependencies)
+* [Usage](#usage)
+* [Deployment](#deployment)
+   * [Console](#console)
+   * [Migrate](#migrate)
+   * [Cron](#cron)
+* [Author](#author)
+* [License](#license)
+
+System dependencies
+-------------
 
 - homebrew
   - nodenv
@@ -14,9 +25,12 @@ CodeZine Sample Application
   - docker
   - kubernetes-cli
 
-## Usage
+Usage
+-------------
 
-```bash
+- Bootstrap
+
+```shell-session
 $ script/bootstrap
 
   CodeZine Sample Application
@@ -43,20 +57,21 @@ $ script/bootstrap
 
 - Run
 
-```bash
+```shell-session
 $ script/server
 ```
 
 `$ open http://localhost:5000`
 
 
-## Deployment
+Deployment
+-------------
 
 - locally(Using minikube)
 
 use https://github.com/kubernetes/minikube
 
-```bash
+```shell-session
 $ minikube status
 minikube: Stopped
 localkube:
@@ -71,7 +86,7 @@ $ kubectl config current-context
 minikube
 ```
 
-```bash
+```shell-session
 # Create Namespace
 $ kubectl create -f kubernetes/namespace.yaml
 
@@ -96,26 +111,26 @@ deployment "postgres" created
 $ kubectl create -f kubernetes/myapp.yaml
 ```
 
-```bash
+```shell-session
 # Open Browser
 $ open $(minikube service myapp -n myapp)
 ```
 
 ### Console
 
-```bash
+```shell-session
 $ script/k8s-console
 ```
 
 ### Migrate
 
-```bash
+```shell-session
 $ script/k8s-migrate
 ```
 
 ### Cron
 
-```bash
+```shell-session
 $ kubectl create -f kubernetes/jobs/myapp-job.yaml
 cronjob "myapp-job" created
 
@@ -124,10 +139,12 @@ NAME        SCHEDULE       SUSPEND   ACTIVE    LAST-SCHEDULE
 myapp-job   */15 * * * *   False     0         <none>
 ```
 
-## Author
+Author
+-------------
 
 [@koudaiii](https://github.com/koudaiii)
 
-## License
+License
+-------------
 
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
