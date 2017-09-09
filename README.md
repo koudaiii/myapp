@@ -1,10 +1,21 @@
-# myapp
+myapp
+=================
 
 [![Build Status](https://travis-ci.org/koudaiii/myapp.svg?branch=master)](https://travis-ci.org/koudaiii/myapp)
 
 CodeZine Sample Application
 
-## System dependencies
+* [System dependencies](#system-dependencies)
+* [Usage](#usage)
+* [Deployment](#deployment)
+   * [Console](#console)
+   * [Migrate](#migrate)
+   * [Cron](#cron)
+* [Author](#author)
+* [License](#license)
+
+System dependencies
+-------------
 
 - homebrew
   - nodenv
@@ -14,7 +25,8 @@ CodeZine Sample Application
   - docker
   - kubernetes-cli
 
-## Usage
+Usage
+-------------
 
 ```bash
 $ script/bootstrap
@@ -50,7 +62,8 @@ $ script/server
 `$ open http://localhost:5000`
 
 
-## Deployment
+Deployment
+-------------
 
 - locally(Using minikube)
 
@@ -124,10 +137,12 @@ NAME        SCHEDULE       SUSPEND   ACTIVE    LAST-SCHEDULE
 myapp-job   */15 * * * *   False     0         <none>
 ```
 
-## Author
+Author
+-------------
 
 [@koudaiii](https://github.com/koudaiii)
 
-## License
+License
+-------------
 
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
