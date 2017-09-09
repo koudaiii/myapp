@@ -28,7 +28,9 @@ System dependencies
 Usage
 -------------
 
-```bash
+- Bootstrap
+
+```shell-session
 $ script/bootstrap
 
   CodeZine Sample Application
@@ -55,7 +57,7 @@ $ script/bootstrap
 
 - Run
 
-```bash
+```shell-session
 $ script/server
 ```
 
@@ -69,7 +71,7 @@ Deployment
 
 use https://github.com/kubernetes/minikube
 
-```bash
+```shell-session
 $ minikube status
 minikube: Stopped
 localkube:
@@ -84,7 +86,7 @@ $ kubectl config current-context
 minikube
 ```
 
-```bash
+```shell-session
 # Create Namespace
 $ kubectl create -f kubernetes/namespace.yaml
 
@@ -109,26 +111,26 @@ deployment "postgres" created
 $ kubectl create -f kubernetes/myapp.yaml
 ```
 
-```bash
+```shell-session
 # Open Browser
 $ open $(minikube service myapp -n myapp)
 ```
 
 ### Console
 
-```bash
+```shell-session
 $ script/k8s-console
 ```
 
 ### Migrate
 
-```bash
+```shell-session
 $ script/k8s-migrate
 ```
 
 ### Cron
 
-```bash
+```shell-session
 $ kubectl create -f kubernetes/jobs/myapp-job.yaml
 cronjob "myapp-job" created
 
