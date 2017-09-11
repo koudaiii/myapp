@@ -49,6 +49,10 @@ spec:
                 - "-r"
                 - "/app/public"
                 - "/nginx/"
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "256m"
         env:
         - name: "RAILS_SERVE_STATIC_FILES"
           value: "enabled"
