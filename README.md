@@ -5,7 +5,7 @@ myapp
 
 CodeZine Sample Application
 
-* [System dependencies](#system-dependencies)
+* [Requirement](#requirement)
 * [Usage](#usage)
 * [Deployment](#deployment)
    * [Console](#console)
@@ -14,7 +14,7 @@ CodeZine Sample Application
 * [Author](#author)
 * [License](#license)
 
-System dependencies
+Requirement
 -------------
 
 - homebrew
@@ -23,7 +23,10 @@ System dependencies
   - ruby-build
   - postgresql
   - docker
-  - kubernetes-cli
+  - kubectl
+  - minikube
+
+See `.ruby-version` and `.node-version` files for versions in use.
 
 Usage
 -------------
