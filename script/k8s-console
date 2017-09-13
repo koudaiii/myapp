@@ -8,7 +8,7 @@ KUBE=kubectl
 NAME="$(awk '{ print tolower($0) }' <<< "$USER")"
 NAME="${NAME}-$(date '+%Y%m%d%H%M%s')"
 
-TAG='latest'
+TAG="latest"
 if [ $# -eq 1 ]; then
   COMMIT=$(git rev-parse $1)
   TAG=${COMMIT::7}
@@ -50,7 +50,7 @@ main() {
   create_pod
 
   trap at_exit EXIT
-  trap 'trap - EXIT; at_exit; exit -1' SIGHUP SIGINT SIGTERM
+  trap "trap - EXIT; at_exit; exit -1" SIGHUP SIGINT SIGTERM
 
   wait_for_up
   enter_to_pod
