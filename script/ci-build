@@ -10,9 +10,7 @@ fi
 
 cd "$(dirname $0)/.."
 
-docker build \
-       -t $REPO:$TAG_COMMIT \
-       .
+docker build -t $REPO:$TAG_COMMIT .
 
 docker tag $REPO:$TAG_COMMIT $REPO:$TAG_COMMIT_SHORT
 docker tag $REPO:$TAG_COMMIT $REPO:$TAG_BRANCH
