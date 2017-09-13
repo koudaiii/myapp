@@ -33,7 +33,7 @@ env:
   # - secure: "xxxxxxxxxxxxxxxxxxxxxxxxxx"
   # travis encrypt KOPS_STATE_STORE=xxx
   # - secure: "xxxxxxxxxxxxxxxxxxxxxxxxxx"
-  - YARN_VERSION=0.28.4
+  - YARN_VERSION=1.0.1
 
 cache: bundler
 
