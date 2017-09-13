@@ -152,7 +152,7 @@ fi
 # Startup instructions
 #
 echo ""
-echo "  セット・アップ完了"
+echo "  セットアップ完了"
 echo ""
 echo "  Run 'script/server'"
 echo "  And you can see 'open localhost:5000'"

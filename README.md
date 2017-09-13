@@ -52,7 +52,7 @@ $ script/bootstrap
   + Installing gems.
   + Gem installation completed.
 
-  セット・アップ完了
+  セットアップ完了
 
   Run 'script/server'
   And you can see 'open localhost:5000'
