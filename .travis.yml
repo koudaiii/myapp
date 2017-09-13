@@ -38,7 +38,7 @@ env:
 cache: bundler
 
 before_install:
-  - "npm install -g yarn@$YARN_VERSION"
+  - npm install -g yarn@$YARN_VERSION
 
 before_script:
   - bundle exec rails db:create RAILS_ENV=test
