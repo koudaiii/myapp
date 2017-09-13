@@ -16,8 +16,8 @@ error_exit() {
 }
 
 echo_red() {
-  RED='\033[0;31m'
-  NC='\033[0m' # No Color
+  RED="\033[0;31m"
+  NC="\033[0m" # No Color
   echo -e "${RED}$1${NC}"
 }
 
@@ -97,7 +97,7 @@ fi
 # Check for Postgres
 #
 postgres_is_running() {
-  ps aux | grep -v 'grep' | grep 'postgres' > /dev/null 2>&1
+  ps aux | grep -v "grep" | grep "postgres" > /dev/null 2>&1
 }
 if postgres_is_running
 then
@@ -122,7 +122,7 @@ else
   then
     echo "    > ruby-build can build ruby $RUBY_VERSION"
   else
-    echo '    > brew upgrade ruby-build'
+    echo "    > brew upgrade ruby-build"
     brew upgrade ruby-build
   fi
 
