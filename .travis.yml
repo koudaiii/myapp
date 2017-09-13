@@ -33,12 +33,12 @@ env:
   # - secure: "xxxxxxxxxxxxxxxxxxxxxxxxxx"
   # travis encrypt KOPS_STATE_STORE=xxx
   # - secure: "xxxxxxxxxxxxxxxxxxxxxxxxxx"
-  - YARN_VERSION=0.28.4
+  - YARN_VERSION=1.0.1
 
 cache: bundler
 
 before_install:
-  - "npm install -g yarn@$YARN_VERSION"
+  - npm install -g yarn@$YARN_VERSION
 
 before_script:
   - bundle exec rails db:create RAILS_ENV=test
