@@ -3,7 +3,7 @@
 set -eu
 set -o pipefail
 
-if [ $TRAVIS_PULL_REQUEST != 'false' ]; then
+if [ $TRAVIS_PULL_REQUEST != "false" ]; then
   echo "Skip build because this build is a pull request."
   exit 0
 fi
