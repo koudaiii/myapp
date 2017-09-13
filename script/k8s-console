@@ -32,7 +32,7 @@ destroy_pod() {
 wait_for_up() {
   while true ; do
     sleep 2
-    echo "Waiting for container to be up and running..."
+    echo "Waiting for the container to be up and running..."
     $KUBE get po $NAME -n myapp | grep Running > /dev/null 2>&1 && break
   done
 }
