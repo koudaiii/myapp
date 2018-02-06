@@ -77,6 +77,10 @@ spec:
             exec:
             # SIGTERM triggers a quick exit; gracefully terminate instead
               command: ["/usr/sbin/nginx","-s","quit"]
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "256m"
         volumeMounts:
           - mountPath: /app/public
             name: public
